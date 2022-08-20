@@ -1,8 +1,6 @@
 
-from tkinter import Variable
+import string
 
 
-str
-input >> str
-
-print('Hello ' + str + '!')
+str = input()
+print("Hello " + str + '!')
