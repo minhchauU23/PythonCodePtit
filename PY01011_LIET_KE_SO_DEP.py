@@ -1,24 +1,38 @@
 
-def isPalidrome(myString):
-    for index in range(int(len(str(myString))/2)):
-        if(myString[index] != myString[len(myString) - 1- index]): 
-            return False
-    return True
+def doubNum(num):
+    newNum = num
+    while num > 0:
+        newNum = newNum * 10 + num%10
+        num //=10
+    return newNum
+
+def generate(listPalindrome):
+    queue = [2, 4, 6, 8]
+    while len(queue) > 0:
+        top = queue[0]
+        queue.pop(0)
+        listPalindrome.append(int(doubNum(top)))
+        for id in range(0, 9, 2):
+            num = top * 10 + id
+            if num >= 10000: break
+            else :queue.append(num) 
 
 def Test():
+    listPalindrome = []
+    generate(listPalindrome)
     numOfTest = int(input())
     for test in range(numOfTest):
         sizeNum = int(input())
-        queue = [2, 4, 6, 8]
-        while True:
-            top = queue.pop(0)
-            if top > sizeNum : break
-            if isPalidrome(top) :
-                print(top)
-            for num in range(0, 8, 2):
-                queue.append(top*10+num)
-            
+        for item in listPalindrome:
+            if item < sizeNum:
+                print(item, end = ' ')
+            else:
+                print()
+                break
+
 Test()
+
         
+
 
 
