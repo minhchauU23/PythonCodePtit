@@ -18,4 +18,3 @@ def Test():
         print(encode(s))
 Test()
 
-print(str.upper())
