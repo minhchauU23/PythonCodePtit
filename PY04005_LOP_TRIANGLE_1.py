@@ -26,11 +26,15 @@ class Triangle:
         firstEdge = self.firstPoint.distance(self.secondPoint)
         secondEdge = self.firstPoint.distance(self.thirdPoint)
         thirdEdge = self.secondPoint.distance(self.thirdPoint)
-        return Decimal.quantize(Decimal(str(firstEdge + secondEdge + thirdEdge)),Decimal("1.000"),ROUND_FLOOR)
-
+        return round((firstEdge + secondEdge + thirdEdge)*1000)*0.001
 t = int(input())
 while t > 0:
     arr = input().split()
+    while len(arr) < 6:
+        for i in input().split():
+            arr.append(i)
+            if len(arr) == 6:
+                break
     triangle = Triangle(Point(float(arr[0]), float(arr[1])), Point(float(arr[2]), float(arr[3])), Point(float(arr[4]), float(arr[5])))
     if triangle.getValid():
         print(triangle.getPerimeter())
