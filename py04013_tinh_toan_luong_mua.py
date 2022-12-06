@@ -1,4 +1,6 @@
 from datetime import date, datetime
+from decimal import  Decimal
+
 
 
 class Weather:
@@ -18,28 +20,22 @@ class Weather:
         return '{} {} {}'.format(self.id ,self.place, self.getAverageRain())
 
     def getAverageRain(self):
-        return self.rain * 3600/self.totalTime
-    
-class WeatherDict(dict):
-    def __getitem__(self, key):
-        value = self[key] = type(self)()
-        return value
+        return Decimal(str(self.rain * 3600/self.totalTime)).quantize(Decimal("1.00"))
 
-wtdct = WeatherDict()
+
+wtdct = dict()
 amount = int(input())
 for i in range(amount):
     name = input()
-    diff = datetime.strptime(input().strip(), '%H:%M') - datetime.strptime(input().strip(), '%H:%M')
+    diff =  (datetime.strptime(input().strip(), '%H:%M') - datetime.strptime(input().strip(), '%H:%M'))
     rain = int(input())
-    if wtdct[name] is None:
-        wtdct.update(name, Weather(name, diff.total_seconds(), rain))
+    if name not in wtdct:
+        wtdct.update({name: Weather(name,-diff.total_seconds(), rain)})
     else:
-        wtdct.get(name).update(diff, rain)
+        wt = wtdct[name]
+        wt.update(-diff.total_seconds(), rain)
 for i in wtdct:
-    print(i, wtdct[i])
-        
-        
-
+    print(wtdct[i])
 
 # 10
 # Dong Anh
